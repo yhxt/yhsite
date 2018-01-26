@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+
+    <h3>{{ blog.title }}</h3>
+    <p>作者：<a href="{% url 'blogs_with_author' blog.author.pk %}">{{blog.author}}</a></p>
+    <p>发表日期：{{ blog.created_time}}</p>
+    <!-- <p>发表日期：{{ blog.created_time|date:'Y-m-d H:n:s'}}</p> -->
+    <p>分类：<a href='{% url 'blogs_with_type' blog.blog_type.pk %}'>{{ blog.blog_type }}</a></p> 
+    <hr>
+    <p>{{ blog.content }}</p>
+    <p>
+        {% if pre_blog %}
+            <a href="{% url 'blog_detail' pre_blog.pk %}">上一篇：{{pre_blog.title}}</a>
+        {% else %}
+            上一篇：没有了
+        {% endif %}
+    </p>
+    <p>
+        {% if next_blog %}
+            <a href="{% url 'blog_detail' next_blog.pk %}">下一篇：{{next_blog.title}}</a>
+        {% else %}
+            下一篇：没有了
+        {% endif %}
+    </p>
+
+{% endblock %}
